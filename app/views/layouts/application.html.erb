@@ -11,6 +11,8 @@
   </head>
 
   <body>
+    <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
     <%= render 'shared/messages' %>
 
     <% if notice %>
@@ -19,6 +21,9 @@
     <% if alert %>
       <p class="alert alert-danger"><%= alert %></p>
     <% end %>
+
+    </div>
+    </div>
     
     <%= yield %>
   </body>
