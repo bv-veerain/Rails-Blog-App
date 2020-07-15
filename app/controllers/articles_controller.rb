@@ -17,6 +17,7 @@ class ArticlesController < ApplicationController
     def create
         # render plain: params[:article].inspect
         @article = Article.new(article_params)
+        @article.user = current_user
         if @article.save
             flash[:success] = "Article was successfully created"
             redirect_to @article
@@ -35,20 +36,30 @@ class ArticlesController < ApplicationController
 
     def update
         # @article = Article.find(params[:id])
-        if @article.update(article_params)
-            flash[:success] = "Article was updated"
-            redirect_to @article
+        if @article.user_id == current_user.id
+            if @article.update(article_params)
+                flash[:success] = "Article was updated"
+                redirect_to @article
+            else
+                flash[:warning] = "Article was not updated"
+                render 'edit'
+            end
         else
-            flash[:warning] = "Article was not updated"
-            render 'edit'
+            flash[:warning] = "Not your article bro!"
+            redirect_to @article
         end
     end
 
     def destroy
         # @article = Article.find(params[:id])
-        @article.destroy
-        flash[:success] = "Article was deleted"
-        redirect_to articles_path
+        if @article.user_id == current_user.id
+            @article.destroy
+            flash[:success] = "Article was deleted"
+            redirect_to articles_path
+        else
+            flash[:warning] = "Not your article bro!"
+            redirect_to @article
+        end
     end
 
     private

@@ -1,0 +1,9 @@
+<% if @user.username %>
+    <h1 class="text-center">Welcome to <%= @user.username %>'s page</h1>
+    <h4 class="text-center"><%= @user.username %>'s articles</h4>
+<% else %>
+    <h1 class="text-center">Welcome to <%= @user.email %>'s page</h1>
+    <h4 class="text-center"><%= @user.email %>'s articles</h4>
+    <% flash[:warning] = "Add Username to your profile in the edit profile section" %>
+<% end %>
+<%= render 'shared/article', obj: @user.articles %>

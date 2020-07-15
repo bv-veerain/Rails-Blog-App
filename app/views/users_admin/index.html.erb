@@ -1,0 +1,13 @@
+<h1 class="text-center">Listing all Users</h1>
+<% @users.each do |user| %>
+ <div class="row">
+  <div class="col-xs-8 col-xs-offset-2">
+   <div class="well well-lg">
+    <div class="article-title">
+     <p><%= link_to user.username, users_admin_path(user) %></p>
+     <p><%= user.email %></p>
+    </div>
+   </div>
+  </div>
+ </div>
+<% end %>
